@@ -1,6 +1,32 @@
-# Arkpets Codex
+# Arknights Codex Pets
 
-Convert Spine character assets from `Ark-Models` into Codex custom pets.
+Convert Arknights Spine character assets from `Ark-Models` into animated Codex custom pets.
+
+<p align="center">
+  <img src="docs/assets/pets/amiya-idle.gif" width="150" alt="Amiya pet preview" />
+  <img src="docs/assets/pets/monstr-idle.gif" width="150" alt="Monstr pet preview" />
+  <img src="docs/assets/pets/oblvns-avemujica-idle.gif" width="150" alt="Oblvns Ave Mujica pet preview" />
+  <img src="docs/assets/pets/shu-idle.gif" width="150" alt="Shu pet preview" />
+  <img src="docs/assets/pets/kaltsit-sale-idle.gif" width="150" alt="Kal'tsit Sale pet preview" />
+</p>
+
+<p align="center">
+  <strong>Ark-Models Spine assets</strong> -> <strong>PixiJS capture</strong> -> <strong>Codex custom pet atlas</strong>
+</p>
+
+## Demo Pets
+
+These previews were generated with this converter and installed as Codex custom pets.
+
+| Pet | Idle | Interaction |
+| --- | --- | --- |
+| Amiya | <img src="docs/assets/pets/amiya-idle.gif" width="120" alt="Amiya idle" /> | <img src="docs/assets/pets/amiya-waving.gif" width="120" alt="Amiya interaction" /> |
+| Monstr | <img src="docs/assets/pets/monstr-idle.gif" width="120" alt="Monstr idle" /> | <img src="docs/assets/pets/monstr-waving.gif" width="120" alt="Monstr interaction" /> |
+| Oblvns Ave Mujica | <img src="docs/assets/pets/oblvns-avemujica-idle.gif" width="120" alt="Oblvns Ave Mujica idle" /> | <img src="docs/assets/pets/oblvns-avemujica-waving.gif" width="120" alt="Oblvns Ave Mujica interaction" /> |
+| Shu | <img src="docs/assets/pets/shu-idle.gif" width="120" alt="Shu idle" /> | <img src="docs/assets/pets/shu-waving.gif" width="120" alt="Shu interaction" /> |
+| Kal'tsit Sale | <img src="docs/assets/pets/kaltsit-sale-idle.gif" width="120" alt="Kal'tsit Sale idle" /> | <img src="docs/assets/pets/kaltsit-sale-waving.gif" width="120" alt="Kal'tsit Sale interaction" /> |
+
+## What It Does
 
 The tool loads an Ark-Models character directory containing:
 
@@ -17,8 +43,8 @@ It renders the Spine animation in Chrome through PixiJS v7 + pixi-spine v4, samp
 Converter repository:
 
 ```bash
-git clone <your-Arknights-codex-pet-url> Arknights-codex-pet
-cd Arknights-codex-pet
+git clone https://github.com/psy-shawn/Arknights-codex-pets.git
+cd Arknights-codex-pets
 ```
 
 Source model repository:
@@ -35,14 +61,37 @@ More setup detail is in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 - Node.js 20+
 - Ark-Models checkout
 
-Install dependencies:
+## Quick Start
 
 ```bash
+git clone https://github.com/psy-shawn/Arknights-codex-pets.git
+git clone https://github.com/isHarryh/Ark-Models.git
+
+cd Arknights-codex-pets
 npm install
+```
+
+Then export and install a pet:
+
+```bash
+node bin/arkpets-codex.cjs export ../Ark-Models/models/002_amiya \
+  --id amiya \
+  --display-name "Amiya" \
+  --chrome "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --install
+```
+
+Restart Codex, then choose `Amiya` from custom pets.
+
+## Browser Setup
+
+The converter needs a browser to render Spine animations. You can use either Playwright's bundled Chromium:
+
+```bash
 npx playwright install chromium
 ```
 
-If you already have Google Chrome installed, the CLI can use it without downloading Playwright's bundled Chromium:
+Or system Google Chrome:
 
 ```bash
 node bin/arkpets-codex.cjs export /path/to/Ark-Models/models/002_amiya \
