@@ -3,11 +3,11 @@
 Convert Arknights Spine character assets from `Ark-Models` into animated Codex custom pets.
 
 <p align="center">
-  <img src="docs/assets/pets/amiya-idle.gif" width="150" alt="Amiya pet preview" />
-  <img src="docs/assets/pets/monstr-idle.gif" width="150" alt="Monstr pet preview" />
-  <img src="docs/assets/pets/oblvns-avemujica-idle.gif" width="150" alt="Oblvns Ave Mujica pet preview" />
-  <img src="docs/assets/pets/shu-idle.gif" width="150" alt="Shu pet preview" />
-  <img src="docs/assets/pets/kaltsit-sale-idle.gif" width="150" alt="Kal'tsit Sale pet preview" />
+  <img src="docs/assets/pets/amiya-idle.webp" width="150" alt="Amiya pet preview" />
+  <img src="docs/assets/pets/monstr-idle.webp" width="150" alt="Monstr pet preview" />
+  <img src="docs/assets/pets/oblvns-avemujica-idle.webp" width="150" alt="Oblvns Ave Mujica pet preview" />
+  <img src="docs/assets/pets/shu-idle.webp" width="150" alt="Shu pet preview" />
+  <img src="docs/assets/pets/kaltsit-sale-idle.webp" width="150" alt="Kal'tsit Sale pet preview" />
 </p>
 
 <p align="center">
@@ -16,15 +16,15 @@ Convert Arknights Spine character assets from `Ark-Models` into animated Codex c
 
 ## Demo Pets
 
-These previews were generated with this converter and installed as Codex custom pets.
+These animated WebP previews were generated with this converter and installed as Codex custom pets. GIF fallbacks are kept under `docs/assets/pets/` for clients that need them.
 
 | Pet | Idle | Interaction |
 | --- | --- | --- |
-| Amiya | <img src="docs/assets/pets/amiya-idle.gif" width="120" alt="Amiya idle" /> | <img src="docs/assets/pets/amiya-waving.gif" width="120" alt="Amiya interaction" /> |
-| Monstr | <img src="docs/assets/pets/monstr-idle.gif" width="120" alt="Monstr idle" /> | <img src="docs/assets/pets/monstr-waving.gif" width="120" alt="Monstr interaction" /> |
-| Oblvns Ave Mujica | <img src="docs/assets/pets/oblvns-avemujica-idle.gif" width="120" alt="Oblvns Ave Mujica idle" /> | <img src="docs/assets/pets/oblvns-avemujica-waving.gif" width="120" alt="Oblvns Ave Mujica interaction" /> |
-| Shu | <img src="docs/assets/pets/shu-idle.gif" width="120" alt="Shu idle" /> | <img src="docs/assets/pets/shu-waving.gif" width="120" alt="Shu interaction" /> |
-| Kal'tsit Sale | <img src="docs/assets/pets/kaltsit-sale-idle.gif" width="120" alt="Kal'tsit Sale idle" /> | <img src="docs/assets/pets/kaltsit-sale-waving.gif" width="120" alt="Kal'tsit Sale interaction" /> |
+| Amiya | <img src="docs/assets/pets/amiya-idle.webp" width="120" alt="Amiya idle" /> | <img src="docs/assets/pets/amiya-waving.webp" width="120" alt="Amiya interaction" /> |
+| Monstr | <img src="docs/assets/pets/monstr-idle.webp" width="120" alt="Monstr idle" /> | <img src="docs/assets/pets/monstr-waving.webp" width="120" alt="Monstr interaction" /> |
+| Oblvns Ave Mujica | <img src="docs/assets/pets/oblvns-avemujica-idle.webp" width="120" alt="Oblvns Ave Mujica idle" /> | <img src="docs/assets/pets/oblvns-avemujica-waving.webp" width="120" alt="Oblvns Ave Mujica interaction" /> |
+| Shu | <img src="docs/assets/pets/shu-idle.webp" width="120" alt="Shu idle" /> | <img src="docs/assets/pets/shu-waving.webp" width="120" alt="Shu interaction" /> |
+| Kal'tsit Sale | <img src="docs/assets/pets/kaltsit-sale-idle.webp" width="120" alt="Kal'tsit Sale idle" /> | <img src="docs/assets/pets/kaltsit-sale-waving.webp" width="120" alt="Kal'tsit Sale interaction" /> |
 
 ## What It Does
 
