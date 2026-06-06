@@ -57,24 +57,43 @@ More setup detail is in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
 ## Requirements
 
-- macOS or another system with Chrome/Chromium available
+- Windows, macOS, or another system with Chrome/Chromium available
 - Node.js 20+
-- Ark-Models checkout
+- Ark-Models checkout, either full or sparse
 
 ## Quick Start
 
 ```bash
 git clone https://github.com/psy-shawn/Arknights-codex-pets.git
-git clone https://github.com/isHarryh/Ark-Models.git
-
 cd Arknights-codex-pets
 npm install
 ```
 
-Then export and install a pet:
+Then fetch only the model directory you want from Ark-Models:
 
 ```bash
-node bin/arkpets-codex.cjs export ../Ark-Models/models/002_amiya \
+git clone --filter=blob:none --sparse https://github.com/isHarryh/Ark-Models.git Ark-Models
+cd Ark-Models
+git sparse-checkout set models/002_amiya
+cd ..
+```
+
+Export and install the pet.
+
+Windows:
+
+```powershell
+node bin/arkpets-codex.cjs export .\Ark-Models\models\002_amiya `
+  --id amiya `
+  --display-name "Amiya" `
+  --chrome "C:\Program Files\Google\Chrome\Application\chrome.exe" `
+  --install
+```
+
+macOS:
+
+```bash
+node bin/arkpets-codex.cjs export ./Ark-Models/models/002_amiya \
   --id amiya \
   --display-name "Amiya" \
   --chrome "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
@@ -91,7 +110,19 @@ The converter needs a browser to render Spine animations. You can use either Pla
 npx playwright install chromium
 ```
 
-Or system Google Chrome:
+Or system Google Chrome.
+
+Windows:
+
+```powershell
+node bin/arkpets-codex.cjs export .\Ark-Models\models\002_amiya `
+  --id amiya `
+  --display-name "Amiya" `
+  --chrome "C:\Program Files\Google\Chrome\Application\chrome.exe" `
+  --install
+```
+
+macOS:
 
 ```bash
 node bin/arkpets-codex.cjs export /path/to/Ark-Models/models/002_amiya \
@@ -100,6 +131,35 @@ node bin/arkpets-codex.cjs export /path/to/Ark-Models/models/002_amiya \
   --chrome "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
   --install
 ```
+
+Common Windows browser paths:
+
+```text
+C:\Program Files\Google\Chrome\Application\chrome.exe
+C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
+C:\Program Files\Microsoft\Edge\Application\msedge.exe
+C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+```
+
+Edge can also be passed with `--chrome` because the option accepts any Chromium-compatible executable.
+
+## Downloading Specific Models
+
+Ark-Models is large, so sparse checkout is the easiest way to download only the character you want:
+
+```bash
+git clone --filter=blob:none --sparse https://github.com/isHarryh/Ark-Models.git Ark-Models
+cd Ark-Models
+git sparse-checkout set models/002_amiya
+```
+
+To switch or add another model later, run `git sparse-checkout set` with the desired model paths:
+
+```bash
+git sparse-checkout set models/002_amiya "models/003_kalts_sale#14"
+```
+
+Quote paths that contain `#` in PowerShell, bash, or zsh.
 
 ## Usage
 
@@ -118,6 +178,16 @@ node bin/arkpets-codex.cjs export /Users/psy/workspace/code/Ark-Models/models/00
   --id kaltsit-sale \
   --display-name "Kal'tsit Sale" \
   --chrome "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --install
+```
+
+Windows example:
+
+```powershell
+node bin/arkpets-codex.cjs export ".\Ark-Models\models\003_kalts_sale#14" `
+  --id kaltsit-sale `
+  --display-name "Kal'tsit Sale" `
+  --chrome "C:\Program Files\Google\Chrome\Application\chrome.exe" `
   --install
 ```
 

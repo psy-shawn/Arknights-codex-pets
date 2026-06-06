@@ -23,6 +23,7 @@ Example:
 
 ```text
 /Users/psy/workspace/code/Ark-Models/models/002_amiya
+D:\WorkSpace\Arknights-codex-pets\Ark-Models\models\002_amiya
 ```
 
 ## Required Local Repositories
@@ -39,10 +40,24 @@ Ark-Models source repository:
 https://github.com/isHarryh/Ark-Models.git
 ```
 
-If `Ark-Models` is missing, tell the user to clone it:
+If `Ark-Models` is missing and the user wants a specific character, prefer a sparse checkout so only the requested model directory is downloaded:
 
 ```bash
-git clone https://github.com/isHarryh/Ark-Models.git
+git clone --filter=blob:none --sparse https://github.com/isHarryh/Ark-Models.git Ark-Models
+cd Ark-Models
+git sparse-checkout set models/002_amiya
+```
+
+For a full checkout, use:
+
+```bash
+git clone https://github.com/isHarryh/Ark-Models.git Ark-Models
+```
+
+For paths containing `#`, quote the model path in shells:
+
+```bash
+git sparse-checkout set "models/003_kalts_sale#14"
 ```
 
 ## Setup Checks
@@ -55,17 +70,38 @@ npm -v
 test -d node_modules
 ```
 
+On Windows PowerShell, use:
+
+```powershell
+node -v
+npm -v
+Test-Path node_modules
+```
+
 If dependencies are missing in `/Users/psy/workspace/code/Arkpets-codex`, run:
 
 ```bash
 npm install
 ```
 
-If Playwright's browser is missing, either use system Chrome:
+If Playwright's browser is missing, either use system Chrome.
+
+macOS:
 
 ```text
 /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
 ```
+
+Windows:
+
+```text
+C:\Program Files\Google\Chrome\Application\chrome.exe
+C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
+C:\Program Files\Microsoft\Edge\Application\msedge.exe
+C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+```
+
+The CLI flag is still named `--chrome` when passing Microsoft Edge; it accepts any Chromium-compatible executable.
 
 or install bundled Chromium:
 
@@ -87,6 +123,16 @@ node bin/arkpets-codex.cjs export <model-dir> \
   --out dist/<pet-id>
 ```
 
+Windows example:
+
+```powershell
+node bin/arkpets-codex.cjs export .\Ark-Models\models\002_amiya `
+  --id amiya `
+  --display-name "Amiya" `
+  --chrome "C:\Program Files\Google\Chrome\Application\chrome.exe" `
+  --out dist\amiya
+```
+
 Inspect:
 
 ```text
@@ -101,6 +147,16 @@ node bin/arkpets-codex.cjs export <model-dir> \
   --id <pet-id> \
   --display-name "<Pet Name>" \
   --chrome "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --install
+```
+
+Windows install example:
+
+```powershell
+node bin/arkpets-codex.cjs export .\Ark-Models\models\002_amiya `
+  --id amiya `
+  --display-name "Amiya" `
+  --chrome "C:\Program Files\Google\Chrome\Application\chrome.exe" `
   --install
 ```
 
