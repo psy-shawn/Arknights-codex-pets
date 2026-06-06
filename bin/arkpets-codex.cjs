@@ -347,11 +347,21 @@ async function exportPet(options) {
   atlas.data.fill(0);
   const framesRoot = path.join(options.out, 'frames');
   ensureDir(framesRoot);
+  const rowMappings = ROW_SPECS.map((spec) => ({
+    spec,
+    animation: pickAnimation(info.animations, spec.role),
+  }));
+  const idleMapping = rowMappings.find(({ spec }) => spec.state === 'idle') ?? rowMappings[0];
+  const idleAnimationInfo = info.animationInfo.find(({ name }) => name === idleMapping.animation);
+  const idleDuration = Math.max(idleAnimationInfo?.duration ?? 0, 0.001);
+  const sizeBasisFit = await page.evaluate(
+    ({ animation, duration }) => window.arkpetsCapture.measureFit(animation, duration),
+    { animation: idleMapping.animation, duration: idleDuration },
+  );
   const mappings = [];
 
-  for (let row = 0; row < ROW_SPECS.length; row += 1) {
-    const spec = ROW_SPECS[row];
-    const animation = pickAnimation(info.animations, spec.role);
+  for (let row = 0; row < rowMappings.length; row += 1) {
+    const { spec, animation } = rowMappings[row];
     mappings.push({ state: spec.state, animation, frames: spec.frames, mirror: Boolean(spec.mirror) });
     const stateDir = path.join(framesRoot, spec.state);
     ensureDir(stateDir);
@@ -359,6 +369,7 @@ async function exportPet(options) {
       animation,
       frames: spec.frames,
       mirror: Boolean(spec.mirror),
+      fit: sizeBasisFit,
     });
     for (let column = 0; column < dataUrls.length; column += 1) {
       const frame = dataUrlToPng(dataUrls[column]);
@@ -390,6 +401,11 @@ async function exportPet(options) {
     runtime: info.runtime,
     globals: info.globals,
     animations: info.animationInfo,
+    sizeBasis: {
+      state: idleMapping.spec.state,
+      animation: idleMapping.animation,
+      fit: sizeBasisFit,
+    },
     mappings,
   }, null, 2)}\n`);
   makeContactSheet(atlas, path.join(options.out, 'contact-sheet.png'));

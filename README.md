@@ -240,6 +240,8 @@ The default mapping is:
 
 The selected mapping is written to `mapping.json` for review.
 
+All rows are rendered with the `idle` row's fit as the shared size basis. This keeps the pet visually consistent when Codex switches states, especially when `Interact` has wider gestures or effects than `Relax`; large non-idle poses may crop slightly instead of shrinking the whole character.
+
 ## Why This Exists
 
 Ark-Models filenames often contain `#`, and `.atlas` files reference those PNG names directly. Browsers treat `#` as a URL fragment, so this tool copies the model files to safe temporary names:

@@ -42,8 +42,8 @@
     spine.update(time);
   }
 
-  function fitForAnimation(animation, duration, mirror) {
-    spine.scale.set(mirror ? -1 : 1, 1);
+  function measureFit(animation, duration) {
+    spine.scale.set(1, 1);
     spine.position.set(0, 0);
 
     let minX = Number.POSITIVE_INFINITY;
@@ -67,13 +67,23 @@
       (CELL_HEIGHT - PADDING_Y * 2) / sourceHeight,
     );
 
-    const visualCenterX = minX + sourceWidth / 2;
-    const visualBottomY = maxY;
-    spine.scale.set(mirror ? -scale : scale, scale);
+    return {
+      scale,
+      visualCenterX: minX + sourceWidth / 2,
+      visualBottomY: maxY,
+    };
+  }
+
+  function applyFit(fit, mirror) {
+    spine.scale.set(mirror ? -fit.scale : fit.scale, fit.scale);
     spine.position.set(
-      CELL_WIDTH / 2 - visualCenterX * spine.scale.x,
-      CELL_HEIGHT - PADDING_Y - visualBottomY * scale,
+      CELL_WIDTH / 2 - fit.visualCenterX * spine.scale.x,
+      CELL_HEIGHT - PADDING_Y - fit.visualBottomY * fit.scale,
     );
+  }
+
+  function fitForAnimation(animation, duration, mirror) {
+    applyFit(measureFit(animation, duration), mirror);
   }
 
   async function capture(options) {
@@ -83,7 +93,11 @@
     }
 
     const duration = Math.max(animationData.duration, 0.001);
-    fitForAnimation(options.animation, duration, Boolean(options.mirror));
+    if (options.fit) {
+      applyFit(options.fit, Boolean(options.mirror));
+    } else {
+      fitForAnimation(options.animation, duration, Boolean(options.mirror));
+    }
 
     const frames = [];
     spine.skeleton.setToSetupPose();
@@ -107,6 +121,7 @@
     animations,
     animationInfo,
     capture,
+    measureFit,
     runtime: Spine === PIXI.spine38?.Spine ? 'PIXI.spine38.Spine' : 'PIXI.spine.Spine',
     globals: Object.keys(PIXI).filter((key) => key.startsWith('spine')).sort(),
   };
