@@ -1,0 +1,21 @@
+{
+  "name": "arkpets-codex",
+  "version": "0.1.0",
+  "description": "Convert Ark-Models Spine character assets into Codex custom pets.",
+  "private": true,
+  "type": "commonjs",
+  "bin": {
+    "arkpets-codex": "bin/arkpets-codex.cjs"
+  },
+  "scripts": {
+    "export": "node bin/arkpets-codex.cjs export",
+    "batch:examples": "node examples/export-requested-models.cjs"
+  },
+  "dependencies": {
+    "pixi-spine": "^4.0.6",
+    "pixi.js": "^7.4.3",
+    "playwright": "^1.56.1",
+    "pngjs": "^7.0.0"
+  },
+  "devDependencies": {}
+}
